@@ -1,3 +1,5 @@
+import com.android.aaptcompiler.parseNavigation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,13 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.habittracker2"
-    compileSdk {
-        version = release(36)
-    }
+    namespace = "com.example.screenone"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.habittracker2"
+        applicationId = "com.example.screenone"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.navigation:navigation-compose:2.8.0-beta05")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -57,8 +59,4 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.navigation:navigation-compose:2.7.6")
-
-
 }

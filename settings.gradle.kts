@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "HabitTracker2"
+rootProject.name = "screenOne"
 include(":app")
  
