@@ -1,6 +1,6 @@
-package com.example.habittracker2
-
-import Presentation.navigation.AppNavigation
+package Presentation.navigation
+import CreateAccountScreen
+import Presentation.gender.GenderSelectionScreen
 import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -44,27 +44,36 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 //import java.time.format.TextStyle
 import androidx.compose.ui.text.TextStyle
-import com.example.screenone.ui.theme.MoeGreen
-import com.example.screenone.ui.theme.TextBlack
+import com.example.habittracker.presentation.onboarding.OnboardingScreen
+import com.example.habittracker.presentation.welcome.WelcomeScreen
 
+@Composable
+fun AppNavigation() {
+    val navController = rememberNavController()
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MaterialTheme {
-                 Surface(modifier = Modifier.fillMaxSize()) {
-                    AppNavigation()
-                }
-            }
+    NavHost(
+        navController = navController,
+        startDestination = "onboarding"
+    ) {
+
+        composable("onboarding") {
+            OnboardingScreen(navController)
+        }
+
+        composable("welcome") {
+            WelcomeScreen(navController)
+        }
+
+        composable("create_account") {
+            CreateAccountScreen(navController)
+        }
+
+        composable(
+            "gender_selection/{name}",
+            arguments = listOf(navArgument("name") { type = NavType.StringType })
+        ) {
+            val name = it.arguments?.getString("name") ?: ""
+            GenderSelectionScreen(navController, name)
         }
     }
 }
-
-
-
-
-
-
-
-
