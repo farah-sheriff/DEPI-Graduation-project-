@@ -75,7 +75,7 @@ fun GenderSelectionScreen(navController: NavController, name: String) {
             }
         }
 
-        // ⭐ Correct Navigation → Home
+
         Button(
             onClick = {
                 if (selectedGender != null)

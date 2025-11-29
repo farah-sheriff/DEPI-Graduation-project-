@@ -1,6 +1,7 @@
 package Presentation.addhabit
 
 import Presentation.home.HomeViewModel
+import android.R
 import android.app.TimePickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,7 +36,7 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
     val timePicker = TimePickerDialog(
         context,
         { _, h: Int, m: Int ->
-            val amPm = if (h >= 12) "م" else "ص"
+            val amPm = if (h >= 12) "P.M." else "A.M."
             val formattedHour = if (h % 12 == 0) 12 else h % 12
             timeText = "$formattedHour:${m.toString().padStart(2, '0')} $amPm"
         },
@@ -106,13 +107,13 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
             Text(
                 text = timeText,
                 fontSize = 18.sp,
-                color = Color(0xFF6A1B9A)
+                color = MoeGreen
             )
 
             Button(
                 onClick = { timePicker.show() },
                 shape = RoundedCornerShape(50),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFC107))
+                colors = ButtonDefaults.buttonColors(containerColor = MoeGreen)
             ) {
                 Text("Pick Time", color = TextBlack)
             }
@@ -128,7 +129,7 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
             onValueChange = { duration = it },
             valueRange = 10f..120f,
             colors = SliderDefaults.colors(
-                thumbColor = Color(0xFFFFC107),
+                thumbColor = MoeGreen,
                 activeTrackColor = TextBlack
             )
         )
@@ -136,7 +137,7 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
         Text(
             text = "min ${duration.toInt()}",
             fontSize = 18.sp,
-            color = Color(0xFF6A1B9A)
+            color = MoeGreen
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -146,11 +147,16 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+
             Text("Enable Notifications", fontSize = 18.sp)
             Spacer(modifier = Modifier.weight(1f))
             Switch(
                 checked = notificationsEnabled,
-                onCheckedChange = { notificationsEnabled = it }
+                onCheckedChange = { notificationsEnabled = it },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = MoeGreen,
+                    checkedTrackColor = MoeGreen.copy(alpha = 0.5f)
+                )
             )
         }
 
@@ -163,7 +169,7 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
                 .fillMaxWidth()
                 .height(55.dp),
             shape = RoundedCornerShape(50),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFC107))
+            colors = ButtonDefaults.buttonColors(containerColor = MoeGreen)
         ) {
             Text("Finish", color = TextBlack, fontSize = 20.sp)
         }

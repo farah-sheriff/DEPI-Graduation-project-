@@ -19,7 +19,7 @@ import com.example.habittracker.presentation.welcome.WelcomeScreen
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    // 🔥 هنا بننشئ ViewModel واحد بس
+
     val homeViewModel = HomeViewModel()
 
     NavHost(
@@ -39,11 +39,11 @@ fun AppNavigation() {
             CreateAccountScreen(navController)
         }
 
-        // ⭐ New Habit Screen بياخد ViewModel
+
         composable("new_habit") {
             NewHabitScreen(
                 navController = navController,
-                viewModel = homeViewModel    // ← 💚 مهم جداً!
+                viewModel = homeViewModel
             )
         }
 
@@ -55,7 +55,7 @@ fun AppNavigation() {
             GenderSelectionScreen(navController, name)
         }
 
-        // ⭐ HomeScreen بياخد نفس ViewModel
+
         composable("home") {
             HomeScreen(
                 viewModel = homeViewModel,
