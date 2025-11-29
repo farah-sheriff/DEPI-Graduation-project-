@@ -1,5 +1,7 @@
 package Presentation.navigation
 import CreateAccountScreen
+import Presentation.ActivityScreen.ActivityScreen
+import Presentation.SettingsScreen.SettingsScreen
 import Presentation.addhabit.NewHabitScreen
 import Presentation.gender.GenderSelectionScreen
 import Presentation.home.HomeScreen
@@ -14,6 +16,7 @@ import androidx.navigation.navArgument
 //import java.time.format.TextStyle
 import com.example.habittracker.presentation.onboarding.OnboardingScreen
 import com.example.habittracker.presentation.welcome.WelcomeScreen
+
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun AppNavigation() {
@@ -55,12 +58,19 @@ fun AppNavigation() {
             GenderSelectionScreen(navController, name)
         }
 
-        // ⭐ HomeScreen بياخد نفس ViewModel
+
         composable("home") {
             HomeScreen(
                 viewModel = homeViewModel,
                 onNewHabitClick = { navController.navigate("new_habit") }
             )
+        }
+        composable("activity") {
+            ActivityScreen(navController)
+        }
+
+        composable("settings") {
+            SettingsScreen(navController)
         }
     }
 }
