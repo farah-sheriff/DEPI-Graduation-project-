@@ -62,7 +62,9 @@ fun AppNavigation() {
         composable("home") {
             HomeScreen(
                 viewModel = homeViewModel,
-                onNewHabitClick = { navController.navigate("new_habit") }
+                onNewHabitClick = { navController.navigate("new_habit") },
+                onSettingsClick ={ navController.navigate("settings") },
+                onGraphClick = { navController.navigate("activity") }
             )
         }
         composable("activity") {
