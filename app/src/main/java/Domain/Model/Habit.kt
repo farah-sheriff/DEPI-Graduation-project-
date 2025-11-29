@@ -11,3 +11,5 @@ data class Habit(
     val iconRes: Int,
     val isChecked: Boolean = false
 )
+
+
