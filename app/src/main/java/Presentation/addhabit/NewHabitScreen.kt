@@ -1,7 +1,6 @@
 package Presentation.addhabit
 
 import Presentation.home.HomeViewModel
-import android.R
 import android.app.TimePickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +17,7 @@ import androidx.navigation.NavController
 import com.example.screenone.ui.theme.MoeGreen
 import com.example.screenone.ui.theme.TextBlack
 import java.util.*
+import com.example.habittracker.domain.model.Habit
 
 @Composable
 fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
@@ -164,7 +164,21 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         // Finish Button
         Button(
-            onClick = { navController.popBackStack() },
+            onClick = {
+                if (habitName.isNotEmpty()) {
+                    // إنشاء Habit جديد وإضافته للـ ViewModel
+                    viewModel.addHabit(
+                        Habit(
+                            title = habitName,
+                            note = note,
+                            duration = duration.toInt(),
+                            notificationsEnabled = notificationsEnabled,
+                            time = timeText,
+                        )
+                    )
+                    navController.popBackStack() // العودة للـ HomeScreen
+                }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(55.dp),
