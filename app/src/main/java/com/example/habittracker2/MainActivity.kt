@@ -56,6 +56,7 @@ class MainActivity : ComponentActivity() {
             MaterialTheme {
                  Surface(modifier = Modifier.fillMaxSize()) {
                     AppNavigation()
+
                 }
             }
         }
