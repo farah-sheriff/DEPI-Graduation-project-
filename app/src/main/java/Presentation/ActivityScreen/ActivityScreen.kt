@@ -1,5 +1,6 @@
 package Presentation.ActivityScreen
 
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,8 +14,10 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -25,9 +28,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun ActivityScreen(navController: NavController) {
+fun ActivityScreen(
+    navController: NavController,
+    viewModel: ActivityScreenViewModel
+) {
 
-    var selectedTab by remember { mutableStateOf(1) }
+    var selectedTab by remember { mutableStateOf(0) }
+    val state = viewModel.state.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -163,7 +170,7 @@ fun ActivityScreen(navController: NavController) {
                         shape = RoundedCornerShape(10.dp)
                     ) {
                         Text(
-                            text = "🔥 8/mi 32 habits",
+                            text = "🔥 ${state.completedHabits}/${state.totalHabits} habits",
                             color = Color(0xFFCC5500),
                             fontSize = 13.sp,
                             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
@@ -178,7 +185,12 @@ fun ActivityScreen(navController: NavController) {
                         .fillMaxWidth()
                         .height(140.dp)
                 ) {
-                    SmoothLineChart()
+                    val chartData = when (selectedTab) {
+                        0 -> state.dailyStats.ifEmpty { listOf(0f, 0f, 0f, 0f, 0f, 0f, 0f) }
+                        1 -> state.weeklyStats.ifEmpty { listOf(0f, 0f, 0f, 0f) }
+                        else -> state.monthlyStats.ifEmpty { listOf(0f, 0f, 0f, 0f, 0f, 0f) }
+                    }
+                    SmoothLineChart(data = chartData)
                 }
             }
         }
@@ -186,30 +198,33 @@ fun ActivityScreen(navController: NavController) {
         Spacer(modifier = Modifier.weight(1f))
 
         AppBottomNavBar(
-            onHomeClick = { navController.navigate("activity") },
-            onActivityClick = { navController.navigate("activity") },
+            onHomeClick = { navController.navigate("home") { popUpTo("home") { inclusive = true } } },
+            onActivityClick = { /* Already on activity */ },
             onSettingsClick = { navController.navigate("settings") }
         )
     }
 }
 
 @Composable
-fun SmoothLineChart() {
-
-    val data = listOf(4f, 2f, 5f, 3f, 6f, 4f, 7f, 8f)
+fun SmoothLineChart(data: List<Float>) {
 
     Canvas(modifier = Modifier.fillMaxSize()) {
+        if (data.isEmpty() || data.all { it == 0f }) {
+            // Show empty state or default line
+            return@Canvas
+        }
 
-        val xStep = size.width / (data.size - 1)
-        val maxY = data.maxOrNull() ?: 8f
-        val minY = data.minOrNull() ?: 0f
-        val yRange = maxY - minY
+        val xStep = if (data.size > 1) size.width / (data.size - 1) else size.width
+        val maxY = data.maxOrNull() ?: 1f
+        val minY = 0f
+        val yRange = if (maxY > minY) maxY - minY else 1f
 
         val path = Path()
 
         data.forEachIndexed { i, v ->
             val x = i * xStep
-            val y = size.height - ((v - minY) / yRange * size.height)
+            val normalizedValue = if (yRange > 0) (v - minY) / yRange else 0f
+            val y = size.height - (normalizedValue * size.height)
 
             if (i == 0) path.moveTo(x, y)
             else path.lineTo(x, y)
@@ -220,6 +235,19 @@ fun SmoothLineChart() {
             color = Color(0xFF4CAF50),
             style = Stroke(width = 4.dp.toPx(), cap = StrokeCap.Round)
         )
+
+        // Draw points
+        data.forEachIndexed { i, v ->
+            val x = i * xStep
+            val normalizedValue = if (yRange > 0) (v - minY) / yRange else 0f
+            val y = size.height - (normalizedValue * size.height)
+
+            drawCircle(
+                color = Color(0xFF4CAF50),
+                radius = 6.dp.toPx(),
+                center = Offset(x, y)
+            )
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.habittracker.domain.model
 
+
 import androidx.compose.ui.graphics.Color
 
 data class Habit(

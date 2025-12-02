@@ -188,15 +188,7 @@ fun SettingsBottomNavBar(
         ) {
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    Icons.Default.Home,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clickable { onHomeClick() }
-                )
-                Text("Home", color = Color.White, fontSize = 12.sp)
+
             }
 
             Icon(

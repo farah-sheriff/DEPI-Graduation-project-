@@ -1,15 +1,18 @@
 package Presentation.addhabit
 
+
 import Presentation.home.HomeViewModel
 import android.app.TimePickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +30,7 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
     var timeText by remember { mutableStateOf("Pick Time") }
     var duration by remember { mutableStateOf(30f) }
     var notificationsEnabled by remember { mutableStateOf(true) }
+    val coroutineScope = rememberCoroutineScope()
 
     val calendar = Calendar.getInstance()
     val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -167,16 +171,20 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
             onClick = {
                 if (habitName.isNotEmpty()) {
                     // إنشاء Habit جديد وإضافته للـ ViewModel
-                    viewModel.addHabit(
-                        Habit(
-                            title = habitName,
-                            note = note,
-                            duration = duration.toInt(),
-                            notificationsEnabled = notificationsEnabled,
-                            time = timeText,
-                        )
+                    val habit = Habit(
+                        title = habitName,
+                        note = note,
+                        duration = duration.toInt(),
+                        notificationsEnabled = notificationsEnabled,
+                        time = timeText,
                     )
-                    navController.popBackStack() // العودة للـ HomeScreen
+                    // استخدام coroutine لإضافة العادة والانتقال لشاشة التفاصيل
+                    coroutineScope.launch {
+                        val habitId = viewModel.addHabit(habit)
+                        navController.navigate("habit_details/$habitId") {
+                            popUpTo("new_habit") { inclusive = true }
+                        }
+                    }
                 }
             },
             modifier = Modifier
@@ -189,3 +197,4 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
         }
     }
 }
+
