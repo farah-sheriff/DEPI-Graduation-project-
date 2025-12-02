@@ -67,7 +67,7 @@ fun HabitDetailsScreen(
                     .width(120.dp),
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF9C27B0) // Purple
+                    containerColor = MoeGreen // Purple
                 )
             ) {
                 Row(
@@ -98,7 +98,7 @@ fun HabitDetailsScreen(
                 .height(200.dp),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFF9C27B0) // Purple
+                containerColor = MoeGreen // Purple
             )
         ) {
             Column(
@@ -121,7 +121,7 @@ fun HabitDetailsScreen(
                     Text(
                         text = habit.time.ifEmpty { "Not set" },
                         fontSize = 18.sp,
-                        color = Color(0xFFFF6B9D), // Pinkish-red
+                        color = MoeGreen, // Pinkish-red
                         fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -202,7 +202,7 @@ fun HabitDetailsScreen(
                     .height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFFEB3B) // Yellow
+                    containerColor =MoeGreen // Yellow
                 )
             ) {
                 Text(
@@ -226,18 +226,18 @@ fun HabitDetailsScreen(
                     .height(56.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = Color(0xFFFF6B9D) // Pinkish-red
+                    contentColor = MoeGreen // Pinkish-red
                 ),
                 border = androidx.compose.foundation.BorderStroke(
                     width = 1.dp,
-                    color = Color(0xFFFF6B9D)
+                    color = MoeGreen
                 )
             ) {
                 Text(
                     text = "Delete Habit",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFFF6B9D)
+                    color = MoeGreen
                 )
             }
         }
