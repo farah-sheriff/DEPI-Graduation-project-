@@ -126,7 +126,7 @@ fun HomeScreen(
 fun HabitCard(habit: Habit, onClick: () -> Unit, onDelete: () -> Unit) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = MoeGreen),
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
