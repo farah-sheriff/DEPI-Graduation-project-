@@ -1,3 +1,5 @@
+package Presentation.create_account
+
 import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -41,16 +43,29 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 //import java.time.format.TextStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import com.example.habittracker.di.AppModule
 import com.example.habittracker.presentation.create_account.CreateAccountViewModel
 import com.example.habittracker.presentation.onboarding.OnboardingScreen
 import com.example.screenone.ui.theme.LightBeige
 import com.example.screenone.ui.theme.MoeGreen
 import com.example.screenone.ui.theme.TextBlack
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun CreateAccountScreen(navController: NavController, viewModel: CreateAccountViewModel = viewModel()) {
+fun CreateAccountScreen(
+    navController: NavController
+) {
+    val context = LocalContext.current
+    val viewModel = remember {
+        CreateAccountViewModel(
+            AppModule.provideUserRepository(context)
+        )
+    }
+    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -89,7 +104,10 @@ fun CreateAccountScreen(navController: NavController, viewModel: CreateAccountVi
         Button(
             onClick = {
                 if (viewModel.isFormValid()) {
-                    navController.navigate("gender_selection/${viewModel.name.value}")
+                    coroutineScope.launch {
+                        viewModel.saveUser()
+                        navController.navigate("gender_selection/${viewModel.name.value}")
+                    }
                 }
             },
             colors = ButtonDefaults.buttonColors(containerColor = MoeGreen),
