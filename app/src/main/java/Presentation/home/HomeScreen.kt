@@ -72,7 +72,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // New Habit Button
             Button(
                 onClick = onNewHabitClick,
                 colors = ButtonDefaults.buttonColors(containerColor = MoeGreen),
@@ -86,7 +85,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Empty State
             if (state.habits.isEmpty()) {
                 Text(
                     text = "No habits yet. Add your first habit!",
@@ -94,7 +92,6 @@ fun HomeScreen(
                 )
             }
 
-            // List of Habit Cards
             val coroutineScope = rememberCoroutineScope()
             state.habits.forEach { habit ->
                 HabitCard(
@@ -112,7 +109,6 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(100.dp)) // Space for bottom bar
         }
 
-        // Bottom Navigation Bar
         SettingsBottomNavBar(
             onHomeClick = { navController.navigate("home") { popUpTo("home") { inclusive = true } } },
             onStatsClick = onGraphClick,

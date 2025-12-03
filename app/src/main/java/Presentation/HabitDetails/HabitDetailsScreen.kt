@@ -54,7 +54,7 @@ fun HabitDetailsScreen(
             .fillMaxSize()
             .background(LightBeige)
     ) {
-        // Back Button (Purple Oval)
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -90,7 +90,6 @@ fun HabitDetailsScreen(
             }
         }
 
-        // Purple Card with Habit Info
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -107,7 +106,7 @@ fun HabitDetailsScreen(
                     .padding(24.dp),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                // Habit Name (Arabic - right aligned)
+
                 Text(
                     text = habit.title,
                     fontSize = 32.sp,
@@ -138,7 +137,6 @@ fun HabitDetailsScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Progress Section
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -153,7 +151,6 @@ fun HabitDetailsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Sessions List
             if (sessions.isEmpty()) {
                 Box(
                     modifier = Modifier
@@ -183,14 +180,12 @@ fun HabitDetailsScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // Action Buttons
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp, vertical = 24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Mark Complete Button (Yellow)
             Button(
                 onClick = {
                     coroutineScope.launch {
@@ -213,7 +208,6 @@ fun HabitDetailsScreen(
                 )
             }
 
-            // Delete Habit Button (White with border)
             OutlinedButton(
                 onClick = {
                     coroutineScope.launch {

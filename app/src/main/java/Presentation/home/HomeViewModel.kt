@@ -16,7 +16,6 @@ class HomeViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    // الحالة الرئيسية للشاشة، تحتوي على قائمة العادات
     private val _state = MutableStateFlow(HomeState())
     val state: StateFlow<HomeState> = _state.asStateFlow()
 
@@ -25,7 +24,6 @@ class HomeViewModel(
         loadUserName()
     }
 
-    // تحميل العادات من قاعدة البيانات
     private fun loadHabits() {
         viewModelScope.launch {
             repository.getHabits().collect { habits ->
@@ -34,7 +32,6 @@ class HomeViewModel(
         }
     }
 
-    // تحميل اسم المستخدم
     private fun loadUserName() {
         viewModelScope.launch {
             userRepository.getUser().collect { user ->
@@ -43,29 +40,24 @@ class HomeViewModel(
         }
     }
 
-    // دالة لإضافة Habit جديد
     suspend fun addHabit(habit: Habit): Long {
         return repository.addHabit(habit)
     }
 
-    // دالة للحصول على Habit بواسطة ID
     suspend fun getHabitById(id: Long): Habit? {
         return repository.getHabitById(id)
     }
 
-    // دالة لحذف Habit
     suspend fun deleteHabit(habit: Habit) {
         repository.deleteHabit(habit)
     }
 
-    // دالة لتحديث Habit
     suspend fun updateHabit(habit: Habit) {
         repository.updateHabit(habit)
     }
 }
 
-// حالة الشاشة
 data class HomeState(
-    val habits: List<Habit> = emptyList(), // قائمة العادات
-    val userName: String = "" // اسم المستخدم
+    val habits: List<Habit> = emptyList(),
+    val userName: String = ""
 )
