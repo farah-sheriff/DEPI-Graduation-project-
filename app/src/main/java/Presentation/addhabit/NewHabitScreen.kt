@@ -55,7 +55,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
             .padding(24.dp)
     ) {
 
-        // Title
         Text(
             text = "New Habit",
             fontSize = 28.sp,
@@ -66,7 +65,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Habit Name
         OutlinedTextField(
             value = habitName,
             onValueChange = { habitName = it },
@@ -81,7 +79,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Note
         OutlinedTextField(
             value = note,
             onValueChange = { note = it },
@@ -98,7 +95,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Daily Schedule
         Text("Daily Schedule", fontSize = 20.sp, fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -125,7 +121,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Duration
         Text("Duration", fontSize = 20.sp, fontWeight = FontWeight.Bold)
 
         Slider(
@@ -146,7 +141,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Enable Notifications
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
@@ -166,7 +160,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Finish Button
         Button(
             onClick = {
                 if (habitName.isNotEmpty()) {
@@ -178,7 +171,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
                         notificationsEnabled = notificationsEnabled,
                         time = timeText,
                     )
-                    // استخدام coroutine لإضافة العادة والانتقال لشاشة التفاصيل
                     coroutineScope.launch {
                         val habitId = viewModel.addHabit(habit)
                         navController.navigate("habit_details/$habitId") {
