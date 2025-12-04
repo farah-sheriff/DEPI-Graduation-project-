@@ -18,6 +18,7 @@ import com.example.habittracker.domain.model.Habit
 import com.example.screenone.ui.theme.LightBeige
 import com.example.screenone.ui.theme.MoeGreen
 import com.example.screenone.ui.theme.TextBlack
+import com.example.screenone.ui.theme.TextWhite
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,17 +76,12 @@ fun HabitDetailsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Back",
+                        text = "← Back",
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "←",
-                        color = Color.White,
-                        fontSize = 18.sp
-                    )
+
                 }
             }
         }
@@ -97,7 +93,7 @@ fun HabitDetailsScreen(
                 .height(200.dp),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MoeGreen // Purple
+                containerColor = MoeGreen
             )
         ) {
             Column(
@@ -114,9 +110,14 @@ fun HabitDetailsScreen(
                     color = Color.White,
                     modifier = Modifier.fillMaxWidth()
                 )
-
+                Text(
+                    text = habit.note,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.fillMaxWidth()
+                )
                 Column {
-                    // Time
                     Text(
                         text = habit.time.ifEmpty { "Not set" },
                         fontSize = 18.sp,
@@ -124,7 +125,6 @@ fun HabitDetailsScreen(
                         fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    // Duration
                     Text(
                         text = "min ${habit.duration}",
                         fontSize = 18.sp,
@@ -204,7 +204,7 @@ fun HabitDetailsScreen(
                     text = "Mark Complete",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextBlack
+                    color = TextWhite
                 )
             }
 
