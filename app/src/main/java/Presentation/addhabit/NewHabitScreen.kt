@@ -29,7 +29,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
     var note by remember { mutableStateOf("") }
     var timeText by remember { mutableStateOf("Pick Time") }
     var duration by remember { mutableStateOf(30f) }
-    var notificationsEnabled by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
 
     val calendar = Calendar.getInstance()
@@ -146,16 +145,8 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
             modifier = Modifier.fillMaxWidth()
         ) {
 
-            Text("Enable Notifications", fontSize = 18.sp)
-            Spacer(modifier = Modifier.weight(1f))
-            Switch(
-                checked = notificationsEnabled,
-                onCheckedChange = { notificationsEnabled = it },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = MoeGreen,
-                    checkedTrackColor = MoeGreen.copy(alpha = 0.5f)
-                )
-            )
+
+
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -168,7 +159,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
                         title = habitName,
                         note = note,
                         duration = duration.toInt(),
-                        notificationsEnabled = notificationsEnabled,
                         time = timeText,
                     )
                     coroutineScope.launch {
