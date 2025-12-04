@@ -122,7 +122,6 @@ fun AppNavigation() {
                                 duration = updatedHabit.duration
                             )
                         )
-                        // Update habit
                         homeViewModel.updateHabit(updatedHabit.copy(isChecked = !updatedHabit.isChecked))
                         // Refresh habit and sessions
                         habit = homeViewModel.getHabitById(habitId)
@@ -131,9 +130,7 @@ fun AppNavigation() {
                 },
                 onDelete = { habitToDelete ->
                     coroutineScope.launch {
-                        // Delete all sessions for this habit
                         sessionRepository.deleteSessionsByHabitId(habitId)
-                        // Delete habit
                         homeViewModel.deleteHabit(habitToDelete)
                     }
                 }

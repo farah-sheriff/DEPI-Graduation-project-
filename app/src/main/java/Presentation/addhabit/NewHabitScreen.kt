@@ -153,7 +153,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
         Button(
             onClick = {
                 if (habitName.isNotEmpty()) {
-                    // إنشاء Habit جديد وإضافته للـ ViewModel
                     val habit = Habit(
                         title = habitName,
                         note = note,
