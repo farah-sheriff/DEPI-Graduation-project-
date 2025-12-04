@@ -146,7 +146,6 @@ fun NewHabitScreen(navController: NavController, viewModel: HomeViewModel) {
         ) {
 
 
-
         }
 
         Spacer(modifier = Modifier.height(32.dp))
