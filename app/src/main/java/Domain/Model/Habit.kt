@@ -5,12 +5,12 @@ import androidx.compose.ui.graphics.Color
 
 data class Habit(
     val id: Long = System.currentTimeMillis(),
-    val title: String,               // اسم العادة
-    val note: String = "",           // ملاحظة (اختياري)
-    val duration: Int = 30,          // مدة العادة بالدقائق
-    val notificationsEnabled: Boolean = true,  // هل الإشعارات مفعلة
+    val title: String,
+    val note: String = "",
+    val duration: Int = 30,
+    val notificationsEnabled: Boolean = true,
     val tag: String = "New",
     val tagColor: Color = Color(0xFFFF4081),
-    val time: String = "",           // وقت العادة
-    val isChecked: Boolean = false   // هل العادة مكتملة
+    val time: String = "",
+    val isChecked: Boolean = false
 )
